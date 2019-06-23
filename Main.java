@@ -28,7 +28,7 @@ public class Main {
         String[] strings = scn.nextLine().split("[\\p{Punct}\\s]+");
         Arrays.stream(strings)
                 .map(String::toLowerCase)
-                .collect(Collectors.groupingByConcurrent(word -> word, Collectors.counting()))
+                .collect(Collectors.groupingBy(word -> word, Collectors.counting()))
                 .entrySet()
                 .stream()
                 .sorted(comparatorForAlphabet())
