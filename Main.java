@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -13,16 +12,6 @@ public class Main {
         main.readOrProcessing();
     }
 
-    private static Comparator<Map.Entry<String, Long>> comparatorForAlphabet() {
-        return (o1, o2) -> {
-            if (o1.getValue().equals(o2.getValue())) {
-                return o1.getKey().compareTo(o2.getKey());
-            } else {
-                return o2.getValue().compareTo(o1.getValue());
-            }
-        };
-    }
-
     public void readOrProcessing() {
         Scanner scn = new Scanner(System.in, "UTF-8");
         String[] strings = scn.nextLine().split("[\\p{Punct}\\s]+");
@@ -31,7 +20,7 @@ public class Main {
                 .collect(Collectors.groupingBy(word -> word, Collectors.counting()))
                 .entrySet()
                 .stream()
-                .sorted(comparatorForAlphabet())
+                .sorted((o1, o2) -> new Comparator().compare(o1, o2))
                 .limit(10)
                 .map(Map.Entry::getKey)
                 .forEach(System.out::println);
